@@ -1,0 +1,556 @@
+// src/App.scss - Fixed with centering issues resolved
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary-color: #0f172a;
+  --accent-color: #06b6d4;
+  --light-color: #f8fafc;
+  --dark-color: #1e293b;
+  --gray-color: #64748b;
+  --border-radius: 0.5rem;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark-color);
+  line-height: 1.7;
+  background-color: var(--light-color);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.App {
+  width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+section {
+  padding: 6rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.display-4, .display-5 {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(37, 99, 235, 0.3);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-outline-light:hover {
+  transform: translateY(-2px);
+}
+
+.card {
+  border-radius: var(--border-radius);
+  border: none;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.form-control, .form-select {
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+.shadow {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-dark) 100%);
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Add staggered animation delay for children */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.5s ease forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Hero section fix */
+.hero {
+  background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.hero.d-flex {
+  display: flex !important;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(to top, var(--light-color), transparent);
+}
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+  width: 100%;
+}
+
+.hero-content.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lead {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+/* Custom class for service cards */
+.service-card {
+  height: 100%;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: none;
+  transition: var(--transition);
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.service-card .icon-box {
+  background-color: rgba(37, 99, 235, 0.1);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  transition: var(--transition);
+}
+
+.service-card .icon-box svg {
+  color: var(--primary-color);
+}
+
+.service-card:hover .icon-box {
+  background-color: var(--primary-color);
+}
+
+.service-card:hover .icon-box svg {
+  color: white;
+}
+
+/* Feature section styling */
+.feature-item {
+  transition: var(--transition);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+}
+
+.feature-item:hover {
+  background-color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  background-color: rgba(37, 99, 235, 0.1);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Contact and consultation forms */
+.form-container {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.form-container:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Scroll reveal animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Footer styling */
+footer {
+  position: relative;
+  width: 100%;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.social-icons a {
+  transition: var(--transition);
+}
+
+.social-icons a:hover {
+  color: var(--primary-color) !important;
+  transform: translateY(-3px);
+}
+
+.footer-link {
+  transition: var(--transition);
+  position: relative;
+  display: inline-block;
+}
+
+.footer-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+}
+
+.footer-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.footer-link:hover:after {
+  width: 100%;
+}
+
+.footer-contact svg {
+  transition: var(--transition);
+}
+
+.footer-contact:hover svg {
+  transform: translateY(-3px);
+}
+
+/* Navbar styling */
+.navbar {
+  padding: 1rem 0;
+  transition: var(--transition);
+  width: 100%;
+}
+
+.navbar.scrolled {
+  padding: 0.5rem 0;
+  background-color: white !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  transition: var(--transition);
+  position: relative;
+}
+
+.navbar-nav .nav-link:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: var(--primary-color);
+  transition: var(--transition);
+  transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover:after {
+  width: 80%;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Image styling */
+.img-wrapper {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.img-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(37, 99, 235, 0.1);
+  z-index: 1;
+}
+
+.img-wrapper img {
+  transition: var(--transition);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.img-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero {
+    text-align: center;
+  }
+  
+  .btn {
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-padding {
+    padding: 3rem 0;
+  }
+  
+  .feature-item {
+    text-align: center;
+  }
+  
+  .feature-icon {
+    margin: 0 auto 1rem;
+  }
+}
+
+/* For very large screens */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* For full screen */
+@media (min-width: 1600px) {
+  .hero {
+    background-position: center center;
+  }
+  
+  .navbar {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Loading animations */
+.spinner-border {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+/* Cursor effects */
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Text highlight */
+::selection {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--light-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-dark);
+}
+
+/* Stats Counter Section */
+.stats-counter-section {
+  background-color: var(--light-color); /* Or choose another suitable background */
+}
+
+.stat-item h2 {
+  font-size: 2.5rem; /* Adjust size as needed */
+  margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+  font-size: 1rem; /* Adjust size as needed */
+}
+
+/* Subtle hover effect for buttons */
+.btn-subtle {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-subtle:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.btn-subtle:hover:after {
+  left: 100%;
+}
+
+/* Fix for hero section alignment in the DOM */
+.hero.d-flex.align-items-center {
+  align-items: center !important;
+}
+
+.hero > .container {
+  z-index: 1;
+  position: relative;
+}

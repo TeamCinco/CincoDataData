@@ -1,19 +1,42 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 
-const Counter = ({ end, duration = 2000 }) => {
+// Helper function to format numbers with K/M suffixes
+const formatNumber = (num) => {
+  if (num >= 1000000) {
+    // Use toFixed(1) for millions for consistency, e.g., 1.3M
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  }
+  return num.toString(); // Keep numbers below 1000 as they are
+};
+
+const Counter = ({ end, duration = 100 }) => {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  // Removed 'once: true' to allow re-triggering
+  const isInView = useInView(ref, { amount: 0.1 });
 
+  // Effect to reset count when out of view
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView) {
+      setCount(0); // Reset count when not in view
+    }
+  }, [isInView]);
+
+  // Effect to start counting when in view
+  useEffect(() => {
+    if (!isInView || end === 0) return; // Added check for end === 0
 
     let start = 0;
-    const incrementTime = Math.floor(duration / end);
+    // Prevent division by zero or negative increment time
+    const incrementTime = Math.max(1, Math.floor(duration / end));
 
     const timer = setInterval(() => {
-      start += 1;
+      // Increment logic adjusted slightly for smoother animation with formatting
+      start = Math.min(end, start + Math.ceil(end / (duration / incrementTime)));
       setCount(start);
       if (start === end) {
         clearInterval(timer);
@@ -23,7 +46,8 @@ const Counter = ({ end, duration = 2000 }) => {
     return () => clearInterval(timer);
   }, [end, duration, isInView]);
 
-  return <span ref={ref}>{count.toLocaleString()}</span>;
+  // Use formatNumber in the return statement
+  return <span ref={ref}>{formatNumber(count)}</span>;
 };
 
 // Simple hook to detect if element is in view (requires intersection-observer polyfill or modern browser)
@@ -32,19 +56,18 @@ const useInView = (ref, options) => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setIsInView(true);
-        observer.unobserve(entry.target); // Stop observing once in view
-      }
+      // Update state based on intersection status (entering or leaving)
+      setIsInView(entry.isIntersecting);
     }, options);
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current; // Capture ref value
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef); // Use captured value in cleanup
       }
     };
   }, [ref, options]);
@@ -54,11 +77,11 @@ const useInView = (ref, options) => {
 
 
 const StatsCounter = () => {
-  // Placeholder target numbers
+  // Placeholder target numbers (using values from the reverted file content)
   const stats = [
-    { id: 1, label: 'Leads Found', value: 15200, prefix: '' },
-    { id: 2, label: 'Deals Closed', value: 3850, prefix: '' },
-    { id: 3, label: 'Revenue Generated', value: 1250000, prefix: '$' },
+    { id: 1, label: 'Leads Found', value: 200, prefix: '' },
+    { id: 2, label: 'Deals Closed', value: 3, prefix: '' },
+    { id: 3, label: 'Revenue Generated', value: 60000, prefix: '$' },
   ];
 
   return (

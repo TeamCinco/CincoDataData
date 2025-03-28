@@ -1,8 +1,12 @@
-// src/components/Services.jsx - Enhanced with better card design and animations
+// src/components/Services.jsx - Enhanced with better card design and animations, plus image examples
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap'; // Added Image
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDatabase, faTableList, faChartLine, faRobot } from '@fortawesome/free-solid-svg-icons';
+
+// Import images
+import excelImage from '../assets/excel-snippet.png';
+import jsonImage from '../assets/json-snippet.png';
 
 const serviceItems = [
   {
@@ -30,22 +34,22 @@ const serviceItems = [
 const Services = () => {
   useEffect(() => {
     const revealElements = document.querySelectorAll('.reveal');
-    
+
     const revealOnScroll = () => {
       revealElements.forEach(element => {
         const elementTop = element.getBoundingClientRect().top;
         const windowHeight = window.innerHeight;
-        
+
         if (elementTop < windowHeight - 100) {
           element.classList.add('active');
         }
       });
     };
-    
+
     window.addEventListener('scroll', revealOnScroll);
     // Initial check on load
     revealOnScroll();
-    
+
     return () => window.removeEventListener('scroll', revealOnScroll);
   }, []);
 
@@ -70,6 +74,21 @@ const Services = () => {
               </Card>
             </Col>
           ))}
+        </Row>
+
+        {/* Added Row for Image Snippets */}
+        <div className="text-center mt-5 pt-4 reveal">
+          <h3 className="fw-bold mb-4">Delivered Your Way</h3>
+        </div>
+        <Row className="mt-4 justify-content-center align-items-center g-4 reveal">
+          <Col md={5} className="text-center">
+            <h4 className="text-muted fw-normal mb-3">Excel Format</h4>
+            <Image src={excelImage} alt="Excel data snippet" fluid rounded shadow />
+          </Col>
+          <Col md={5} className="text-center">
+            <h4 className="text-muted fw-normal mb-3">JSON Format</h4>
+            <Image src={jsonImage} alt="JSON data snippet" fluid rounded shadow />
+          </Col>
         </Row>
       </Container>
     </section>
